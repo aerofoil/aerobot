@@ -8,32 +8,32 @@ function main{
 }
 
 function check-root{
-if [ $EUID -ne 0 ]; then
+if [[ $EUID -ne 0 ]]; then
     echo 'Aerobot must be run as root.'
     exit 1
 fi
 }
 
 function depends{
-    if [ -e /usr/bin/debootstrap ]; then
+    if [[ -e /usr/bin/debootstrap ]]; then
         echo 'debootstrap found'
     else
         echo 'installing debootstrap'
         aptitude install -y debootstrap
     fi
-    if [ -e /usr/bin/live-build ]; then
+    if [[ -e /usr/bin/live-build ]]; then
         echo 'live-build found'
     else
         echo 'installing live-build'
         apt-get install -y live-build
     fi
-    if [ -e base/codename-list]; then
+    if [[ -e base/codename-list]]; then
         echo 'codename-list found'
     else
         echo 'codename-list not found'
         exit 2
     fi
-    if [ -e base/architecture-list]; then
+    if [[ -e base/architecture-list]]; then
         echo 'architecture-list found'
     else
         echo 'architecture-list not found'
