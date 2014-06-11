@@ -8,32 +8,32 @@ function main{
 }
 
 function check-root{
-if [ $EUID -ne 0 ]; then
-    echo 'Aerobot must be run as root.'
-    exit 1
+if [[ $EUID -ne 0 ]]; then                ## This won't work with sudo. Suggest changing
+    echo 'Aerobot must be run as root.'   ## to [[ ! "$(id -u)" -eq 0 ]] if we want sudo access
+    exit 1                                ## (There might be a better way to do that)
 fi
 }
 
 function depends{
-    if [ -e /usr/bin/debootstrap ]; then
+    if [[ -e /usr/bin/debootstrap ]]; then
         echo 'debootstrap found'
     else
         echo 'installing debootstrap'
         aptitude install -y debootstrap
     fi
-    if [ -e /usr/bin/live-build ]; then
+    if [[ -e /usr/bin/live-build ]]; then
         echo 'live-build found'
     else
         echo 'installing live-build'
         apt-get install -y live-build
     fi
-    if [ -e base/codename-list]; then
+    if [[ -e base/codename-list]]; then
         echo 'codename-list found'
     else
         echo 'codename-list not found'
         exit 2
     fi
-    if [ -e base/architecture-list]; then
+    if [[ -e base/architecture-list]]; then
         echo 'architecture-list found'
     else
         echo 'architecture-list not found'
@@ -49,13 +49,13 @@ function build{
 }
 
 function split{
-    for CODENAME in `cat base/codename-list`; do
+    for CODENAME in $(cat base/codename-list); do
         cp -r base $CODENAME
-        echo '-d $CODENAME \' >> $CODENAME/config/auto/config
-        for ARCHITECTURE in `cat base/architecture-list`; do
+        echo "-d $CODENAME \ " >> $CODENAME/config/auto/config
+        for ARCHITECTURE in $(cat base/architecture-list); do
             cp -r $CODENAME $CODENAME/$ARCHITECTURE
             cd $CODENAME/$ARCHITECTURE
-            echo '-a $ARCHITECTURE' >> config/auto/config
+            echo "-a $ARCHITECTURE" >> config/auto/config
             build
             cd .. ; cd ..
         done
