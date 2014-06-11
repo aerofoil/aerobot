@@ -1,4 +1,4 @@
 aerobot
 =======
 
-automatically builds Aerofoil ISOs in various architectures and versions
+automatically builds Debian ISOs in various architectures and versions
