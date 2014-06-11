@@ -8,21 +8,9 @@ function main{
 }
 
 function check-root{
-<<<<<<< HEAD
-<<<<<<< HEAD
-if [[ $EUID -ne 0 ]]; then
-    echo 'Aerobot must be run as root.'
-    exit 1
-=======
-if [[ $EUID -ne 0 ]]; then                ## This won't work with sudo. Suggest changing
-    echo 'Aerobot must be run as root.'   ## to [[ ! "$(id -u)" -eq 0 ]] if we want sudo access
-    exit 1                                ## (There might be a better way to do that)
->>>>>>> 6fe29130d1332caaf475bad19629d503ae473984
-=======
 if [[ ! "$(id -u)" -eq 0 ]]; then
     echo 'Aerobot must be run as root.'
     exit 1
->>>>>>> 4481282a7c21c3d3353b0eb2da8cc5f9dcab0e3a
 fi
 }
 
