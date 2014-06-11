@@ -1,4 +1,4 @@
 aerobot
 =======
 
-partially automates ISO generation
+automatically builds Aerofoil ISOs in various architectures and versions
